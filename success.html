@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Success - Healthy Snacks Heaven</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      position: relative;
+      height: 56px;
+      background-color: #cc892b;
+    }
+    .navbar-brand {
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+    }
+    .navbar-brand img {
+      max-height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+      top: 4px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .menu-container {
+      position: relative;
+    }
+    .left-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      width: 200px;
+      background-color: #ff5722;
+      color: white;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      padding-top: 70px;
+      z-index: 1000;
+    }
+    .left-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+    .left-menu a:hover {
+      background-color: #e64a19;
+    }
+    .menu-btn {
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      width: 40px;
+      height: 40px;
+      font-size: 28px;
+      color: white;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+    .container {
+      margin-left: 0;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+    .menu-container:hover .left-menu,
+    .left-menu:hover {
+      left: 0;
+    }
+    .success-container {
+      max-width: 600px;
+      margin: 50px auto;
+      text-align: center;
+    }
+    .btn-primary {
+      background-color: #ff9800;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #e67e22;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: #2bcc97;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="menu-container">
+    <button class="menu-btn">&#9776;</button>
+    <div class="left-menu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-xl navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/snacks_heaven_logo.png" alt="Snack Heaven Logo">
+    </a>
+  </nav>
+
+  <div class="container success-container">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order. Your order has been placed successfully, and you will receive a confirmation email shortly.</p>
+    <a href="index.html" class="btn btn-primary">Go to Home</a>
+  </div>
+
+  <footer class="text-center p-3">
+    <p>&copy; 2024 Snacks Heaven. All rights reserved.</p>
+
+  </footer>
+</body>
+</html>

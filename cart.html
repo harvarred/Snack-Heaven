@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - Healthy Snacks Heaven</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      position: relative;
+      height: 56px;
+      background-color: #cc892b;
+    }
+    .navbar-brand img {
+      max-height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+      top: 4px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .help-symbol {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .menu-container {
+      position: relative;
+    }
+    .left-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      width: 200px;
+      background-color: #ff5722;
+      color: white;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      padding-top: 70px;
+      z-index: 1000;
+    }
+    .left-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+    .left-menu a:hover {
+      background-color: #e64a19;
+    }
+    .menu-btn {
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      width: 40px;
+      height: 40px;
+      font-size: 28px;
+      color: white;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+    .container-fluid {
+      flex-grow: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .menu-container:hover .left-menu,
+    .left-menu:hover {
+      left: 0;
+    }
+    .cart-table {
+      width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+    }
+    .cart-table th, .cart-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+    .cart-table img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+    .cart-summary {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .cart-summary h4 {
+      font-weight: bold;
+    }
+    .btn-primary {
+      background-color: #ff9800;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #e67e22;
+    }
+    .footer {
+      background-color: #2bcc97;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <button class="menu-btn">&#9776;</button>
+    <div class="left-menu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-xl navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/snacks_heaven_logo.png" alt="Snack Heaven Logo">
+    </a>
+    <div class="help-symbol">
+      <i class="fas fa-question-circle"></i>
+    </div>
+  </nav>
+  
+  <div class="container-fluid">
+    <h2 style="text-align:center">Your Shopping Cart</h2>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Cart items will be dynamically inserted here -->
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <h4>Total: <strong><span id="cart-total">₹0.00</span></strong></h4>
+      <button class="btn btn-primary" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2024 Snack Heaven. All rights reserved.
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', loadCart);
+
+    const products = {
+      1: { name: "Lay's Potato Chips", price: 20.00, image: "images/lays.jpg" },
+      2: { name: "Kurkure Namkeen", price: 20.00, image: "images/Kurkure.jpg" },
+      3: { name: "ITC Bingo! Tedhe Medhe", price: 20.00, image: "images/TedheMedhe.jpg" },
+      4: { name: "Delight Foods Soya Sticks", price: 30.00, image: "images/Delight Foods Maharashtrian Snacks - Soya Stick.jpg" },
+      5: { name: "Fox Roasted Makhana", price: 856.00, image: "images/Healthy Fox Roasted Makhana, Flavoured Snack Items Combo.jpg" },
+      6: { name: "DMB Namkeen Mixture", price: 600.00, image: "images/DMB Special Tasty Namkeen Mixture.jpg" },
+    };
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || {};
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+
+      let total = 0;
+
+      Object.keys(cart).forEach(productId => {
+        const product = products[productId];
+        const quantity = parseFloat(cart[productId]) || 0; // Ensure correct parsing
+        const itemTotal = product.price * quantity;
+        total += itemTotal;
+
+        const cartRow = document.createElement('tr');
+
+        cartRow.innerHTML = `
+          <td><img src="${product.image}" alt="${product.name}"></td>
+          <td>${product.name}</td>
+          <td>₹${product.price.toFixed(2)}</td>
+          <td>
+            <input type="number" value="${quantity}" min="1" onchange="updateQuantity(${productId}, this.value)">
+          </td>
+          <td>₹${itemTotal.toFixed(2)}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="removeItem(${productId})">Remove</button></td>
+        `;
+
+        cartItems.appendChild(cartRow);
+      });
+
+      // Update total display
+      document.getElementById('cart-total').innerText = `₹${total.toFixed(2)}`;
+    }
+
+    function updateQuantity(productId, quantity) {
+      quantity = parseFloat(quantity);
+      if (isNaN(quantity) || quantity <= 0) {
+        removeItem(productId);
+      } else {
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+        cart[productId] = quantity;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+      }
+    }
+
+    function removeItem(productId) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || {};
+      delete cart[productId];
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function checkout() {
+      window.location.href = 'checkout.html';
+    }
+  </script>
+</body>
+</html>

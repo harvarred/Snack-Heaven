@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog - Healthy Snacks Heaven</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      position: relative;
+      height: 56px;
+      background-color: #cc892b;
+    }
+    .navbar-brand img {
+      max-height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+      top: 4px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .cart-icon {
+      position: absolute;
+      top: 50%;
+      right: 60px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .cart-icon span {
+      background-color: red;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 14px;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+    }
+    .help-symbol {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .menu-container {
+      position: relative;
+    }
+    .left-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      width: 200px;
+      background-color: #ff5722;
+      color: white;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      padding-top: 70px;
+      z-index: 1000;
+    }
+    .left-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+    .left-menu a:hover {
+      background-color: #e64a19;
+    }
+    .menu-btn {
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      width: 40px;
+      height: 40px;
+      font-size: 28px;
+      color: white;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+    .container {
+      margin-left: 0;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+    .menu-container:hover .left-menu,
+    .left-menu:hover {
+      left: 0;
+    }
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background: url('images/catahero.jpeg') center center/cover no-repeat;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .hero-text h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .hero-text p {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+    .featured-products {
+      padding: 40px 0;
+      text-align: center;
+    }
+    .featured-products h2 {
+      margin-bottom: 40px;
+      font-weight: bold;
+    }
+    .product-section {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .product-card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: none;
+      transition: transform 0.3s;
+      max-width: 300px;
+      margin: 10px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    .product-card .card-body {
+      text-align: center;
+      padding: 15px;
+    }
+    .product-card .card-text {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .price-add-cart {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+    }
+    .price-add-cart .price {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #27ae60;
+    }
+    .price-add-cart .add-to-cart-btn {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .price-add-cart .add-to-cart-btn:hover {
+      background-color: #e67e22;
+    }
+    .footer {
+      background-color: #2bcc97;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.5s;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+ <div class="menu-container">
+    <button class="menu-btn">&#9776;</button>
+    <div class="left-menu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-xl navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/snacks_heaven_logo.png" alt="Snack Heaven Logo">
+    </a>
+    <div class="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cart-count">0</span>
+    </div>
+    <div class="help-symbol">
+      <i class="fas fa-question-circle"></i>
+    </div>
+  </nav>
+
+  <div class="hero-section">
+    <div class="hero-text">
+      <!-- <h1>Our Delicious Snacks</h1>
+      <p>Explore our wide range of snacks. Choose your favorites and enjoy!</p>-->
+    </div> 
+  </div>
+
+  <div class="container-fluid">
+    <div class="featured-products">
+      <h2>Our Products</h2>
+      <div class="product-section">
+        <div class="card product-card">
+          <img src="images/lays.jpg" class="card-img-top" alt="Lay's">
+          <div class="card-body">
+            <p class="card-text">Lay's Potato Chips 50g/52g, American Style Cream & Onion Flavour, Crunchy Chips & Snacks (weight may vary)</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;20.00</span>
+              <button class="btn add-to-cart-btn" data-product-id="1">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card product-card">
+          <img src="images/Kurkure.jpg" class="card-img-top" alt="Kurkure">
+          <div class="card-body">
+            <p class="card-text">Kurkure Namkeen - Masala Munch, 75g/82g/90g (Weight May Vary)</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;20.00</span>
+              <button class="btn add-to-cart-btn" data-product-id="2">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card product-card">
+          <img src="images/TedheMedhe.jpg" class="card-img-top" alt="Tedhe Medhe">
+          <div class="card-body">
+            <p class="card-text">ITC Bingo! Tedhe Medhe Masala Tadka, 80g/90g, Spindle Shaped Crunchy Snack with Indian Masala Flavour</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;20.00</span>
+              <button class="btn add-to-cart-btn" data-product-id="3">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <!-- Additional Products -->
+        <div class="card product-card">
+          <img src="images/Delight Foods Maharashtrian Snacks - Soya Stick.jpg" class="card-img-top" alt="Product Image 4">
+          <div class="card-body">
+            <p class="card-text">Delight Foods Maharashtrian Snacks - All In One Mixture 250g | Namkeen, Savory, Chiwda</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;235.00</span>
+              <button class="btn add-to-cart-btn" data-product-id="4">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card product-card">
+          <img src="images/Healthy Fox Roasted Makhana, Flavoured Snack Items Combo.jpg" class="card-img-top" alt="Product Image 5">
+          <div class="card-body">
+            <p class="card-text">Healthy Fox Roasted Makhana, Flavoured Snack Items Combo (Peri Peri + Cheese & Herbs + Magic Masala) for Kids & Adults, Protein & Fibre Fox Nuts, Low-Calorie Gluten-Free Phool Makhana, No Preservatives(70g Each)</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;856.00</span>
+              <button class="btn add-to-cart-btn" data-product-id="5">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card product-card">
+          <img src="images/DMB Special Tasty Namkeen Mixture.jpg" class="card-img-top" alt="Product Image 6">
+          <div class="card-body">
+            <p class="card-text">DMB Special Tasty Namkeen Mixture (All in One) Snack Foods Delicious Namkeen |Testy Namkeen |Garden namkeen | Mixture namkeen 200 gm) (Pack of 10)</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;600.00</span>
+              <button class="btn add-to-cart-btn" data-product-id="6">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <div class="footer">
+    <p>&copy; 2024 Snacks Heaven. All rights reserved.</p>
+  </div>
+  <div id="notification"></div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the cart count on page load
+    initializeCart();
+  
+    // Toggle the side menu
+    document.querySelector('.menu-btn').addEventListener('click', function () {
+      document.body.classList.toggle('menu-opened');
+    });
+  
+    // Add to Cart button functionality
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(button) {
+      button.addEventListener('click', function() {
+        var productId = this.getAttribute('data-product-id');
+        var cart = JSON.parse(localStorage.getItem('cart')) || {};
+  
+        // Increment the quantity of the product in the cart
+        cart[productId] = (cart[productId] || 0) + 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+  
+        // Update the cart count
+        updateCartCount();
+  
+        // Show a notification to the user
+        showNotification('Item added to cart!');
+      });
+    });
+  
+    // Cart icon functionality
+    document.querySelector('.cart-icon').addEventListener('click', function() {
+      window.location.href = 'cart.html';
+    });
+  
+    // Function to initialize cart
+    function initializeCart() {
+      localStorage.setItem('cart', JSON.stringify({})); // Reset the cart to an empty object
+      updateCartCount();
+    }
+  
+    // Function to update the cart count in the cart icon
+    function updateCartCount() {
+      var cart = JSON.parse(localStorage.getItem('cart')) || {};
+      var totalCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
+      document.getElementById('cart-count').textContent = totalCount;
+    }
+  
+    // Function to show a notification
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.classList.add('notification');
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    
+    }
+  });
+</script>
+</body>
+</html>

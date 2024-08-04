@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="images/android-chrome-192x192.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      position: relative;
+      height: 56px;
+      background-color: #cc892b;
+    }
+    
+    .help-symbol {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .navbar-brand img {
+      max-height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+      top: 4px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .menu-container {
+      position: relative;
+    }
+    .left-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      width: 200px;
+      background-color: #ff5722;
+      color: white;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      padding-top: 70px;
+      z-index: 1000;
+    }
+    .left-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+    .left-menu a:hover {
+      background-color: #e64a19;
+    }
+    .menu-btn {
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      width: 40px;
+      height: 40px;
+      font-size: 28px;
+      color: white;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+    .container {
+      margin-left: 0;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+    .menu-container:hover .left-menu,
+    .left-menu:hover {
+      left: 0;
+    }
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background: url('https://via.placeholder.com/1920x600?text=Hero+Image') center center/cover no-repeat;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .hero-text h1 {
+      font-size: 4rem;
+      margin: 0;
+    }
+    .hero-text p {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .btn-hero {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.25rem;
+    }
+    .btn-hero:hover {
+      background-color: #1b8a49;
+    }
+    .featured-products {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .featured-products h2 {
+      margin-bottom: 40px;
+      font-weight: bolder;
+    }
+    .product-section {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .product-card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: none;
+      transition: transform 0.3s;
+      margin: 15px;
+      max-width: 300px;
+      text-align: center;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    .product-card .card-body {
+      text-align: center;
+      padding: 15px;
+    }
+    .product-card .card-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .product-card .card-text {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .price-add-cart {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5%;
+      width: 100%;
+    }
+    .price-add-cart .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #27ae60;
+      flex-shrink: 0;
+    }
+    .price-add-cart .add-to-cart-btn {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .price-add-cart .add-to-cart-btn:hover {
+      background-color: #e67e22;
+    }
+    .more-button {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .more-button a {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 1.25rem;
+      border-radius: 5px;
+    }
+    .more-button a:hover {
+      background-color: #1b8a49;
+    }
+    .footer {
+      background-color: #2bcc97;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Your existing body content here -->
+  <div class="menu-container">
+    <button class="menu-btn">&#9776;</button>
+    <div class="left-menu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-xl navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/snacks_heaven_logo.png" alt="Snack Heaven Logo">
+    </a>
+    <div class="help-symbol">
+      <i class="fas fa-question-circle"></i>
+    </div>
+  </nav>
+
+  <div class="hero-section">
+    <img height="600px" width="100%" src="images/top-view-snacks-paprika-chips-hard-chuck-left-with-copy-space-white-wooden-background.jpg" alt="Hero Image">
+    <div class="hero-text">
+      <h1>Delicious Snacks, Right to Your Doorstep</h1>
+      <p>Savor the Flavor of Freshness</p>
+      <a href="catalog.html" class="btn btn-hero">Order Now</a>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="featured-products">
+      <h2>Featured Products</h2>
+      <div class="product-section">
+        <div class="card product-card">
+          <img src="images/lays.jpg" class="card-img-top" alt="Lay's Potato Chips">
+          <div class="card-body">
+            <p class="card-title">Lay's Potato Chips</p>
+            <p class="card-text">50g/52g, American Style Cream & Onion Flavour</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;20.00</span>
+              <button class="btn add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card product-card">
+          <img src="images/Kurkure.jpg" class="card-img-top" alt="Kurkure Namkeen">
+          <div class="card-body">
+            <p class="card-title">Kurkure Namkeen</p>
+            <p class="card-text">Masala Munch, 75g/82g/90g</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;20.00</span>
+              <button class="btn add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card product-card">
+          <img src="images/TedheMedhe.jpg" class="card-img-top" alt="ITC Bingo! Tedhe Medhe">
+          <div class="card-body">
+            <p class="card-title">ITC Bingo! Tedhe Medhe</p>
+            <p class="card-text">Masala Tadka, 80g/90g</p>
+            <div class="price-add-cart">
+              <span class="price">&#8377;20.00</span>
+              <button class="btn add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="more-button">
+        <a href="catalog.html">More Products <i class="fas fa-arrow-down"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+        <p>&copy; 2024 Snacks Heaven. All rights reserved.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Define the products
+    const products = {
+      1: { id: 1, name: "Lay's Potato Chips", price: 20.00, image: "images/lays.jpg" },
+      2: { id: 2, name: "Kurkure Namkeen", price: 20.00, image: "images/Kurkure.jpg" },
+      3: { id: 3, name: "ITC Bingo! Tedhe Medhe", price: 20.00, image: "images/TedheMedhe.jpg" }
+    };
+
+    // Function to add items to the cart
+    function addToCart(productId) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || {};
+      
+      if (cart[productId]) {
+        cart[productId] += 1;
+      } else {
+        cart[productId] = 1;
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${products[productId].name} has been added to your cart.`);
+    }
+
+    // Attach event listeners to the Add to Cart buttons
+    document.querySelectorAll('.add-to-cart-btn').forEach((button, index) => {
+      button.addEventListener('click', () => {
+        addToCart(index + 1);
+      });
+    });
+  </script>
+</body> 
+</html>
